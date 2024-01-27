@@ -1,0 +1,561 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Chameleon Stack - Kanban",
+    "description": "This is an API Documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/user": {
+      "post": {
+        "sumary": "Create new user",
+        "description": "Create a new user",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string",
+                    "description": "Name of the user"
+                  },
+                  "email":{
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password":{
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                },
+                "example":{
+                  "name":"Test user",
+                  "email":"example@example.com",
+                  "password":"********"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/User"
+                  }
+                }
+              }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete user",
+        "description": "Delete an existing user",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"id",
+						"required":true
+					}
+        ],
+        "responses": {
+          "204": {
+            "description": "The user was sucessfuly deleted"
+          }
+        }
+      },
+      "patch": {
+        "sumary": "Update user",
+        "description": "Update an existing user",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string",
+                    "description": "Name of the user"
+                  },
+                  "email":{
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password":{
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                },
+                "example":{
+                  "name":"Test user",
+                  "email":"example@example.com",
+                  "password":"********"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/User"
+                  }
+                }
+              }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get user by id",
+        "description": "Get user by id",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"id",
+						"required":true
+					}
+        ],
+        "responses": {
+          "201": {
+            "description": "User",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/User"
+                  }
+                }
+            }
+          }
+        }
+      }
+    },
+    "/user/session": {
+      "post":{
+        "sumary": "Session user",
+        "description": "Session user",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "email":{
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password":{
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                },
+                "example":{
+                  "email":"example@example.com",
+                  "password":"********"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties":{
+                      "user": {
+                        "$ref": "#/components/schemas/User"
+                      },
+                      "token": {
+                        "type": "string",
+                        "example": "ScgNT#gR!qr5!ys8",
+                        "description": "Token session user"
+                      }
+                    }
+                  }
+                }
+              }
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "sumary": "Create new category",
+        "description": "Create a new category",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"user_id",
+						"required":true,
+            "description":"User id"
+					}
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string",
+                    "description": "Name of the category"
+                  }
+                },
+                "example":{
+                  "name":"Test category"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The category was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/Category"
+                  }
+                }
+              }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete category",
+        "description": "Delete an existing category",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"id",
+						"required":true
+					}
+        ],
+        "responses": {
+          "204": {
+            "description": "The category was sucessfuly deleted"
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get categories by user id and params",
+        "description": "Get category by user id and params",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"user_id",
+						"required":true
+					}
+        ],
+        "responses": {
+          "201": {
+            "description": "Categories",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items":{
+                      "$ref":"#/components/schemas/Category"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      }
+    },
+    "/card": {
+      "post": {
+        "sumary": "Create new card",
+        "description": "Create a new user",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"user_id",
+						"required":true
+					}
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "title":{
+                    "type": "string",
+                    "description": "title of the card"
+                  },
+                  "description":{
+                    "type": "string",
+                    "description": "description of the card"
+                  },
+                  "status":{
+                    "type": "string",
+                    "description": "status of the card"
+                  }
+                },
+                "example":{
+                  "title":"New CRUD",
+                  "description":"Create new CRUD with details",
+                  "status":"BACKLOG"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The card was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/Card"
+                  }
+                }
+              }
+          }
+        }
+      },
+      "patch": {
+        "sumary": "Update card",
+        "description": "Update an existing card",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"id",
+						"required":true
+					}
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "title":{
+                    "type": "string",
+                    "description": "title of the card"
+                  },
+                  "description":{
+                    "type": "string",
+                    "description": "description of the card"
+                  },
+                  "status":{
+                    "type": "string",
+                    "description": "status of the card"
+                  }
+                },
+                "example":{
+                  "title":"New CRUD",
+                  "description":"Create new CRUD with details",
+                  "status":"BACKLOG"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user was sucessfuly created.",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref":"#/components/schemas/User"
+                  }
+                }
+              }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete card",
+        "description": "Delete an existing card",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"id",
+						"required":true
+					}
+        ],
+        "responses": {
+          "204": {
+            "description": "The card was sucessfuly deleted"
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get cards",
+        "description": "Get cards",
+        "parameters":[
+          {
+						"in":"path",
+						"name":"user_id",
+						"required":true
+					},
+          {
+						"in":"query",
+						"name":"status",
+						"required":false
+					},
+          {
+						"in":"query",
+						"name":"title",
+						"required":false
+					},
+          {
+						"in":"query",
+						"name":"description",
+						"required":false
+					},
+          {
+						"in":"query",
+						"name":"id",
+						"required":false
+					}
+        ],
+        "responses": {
+          "201": {
+            "description": "Card",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items":{
+                      "$ref":"#/components/schemas/Card"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "240b472d-b3c1-4037-ab86-49c2ae8d564e",
+              "description": "Id of entity"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2020-08-28T13:52:40.476Z",
+            "description": "Creation date"
+          },
+          "updated_at": {
+              "type": "string",
+              "example": "2020-08-28T13:52:40.476Z",
+              "description": "Update date"
+          },
+          "name": {
+            "type": "string",
+            "example": "Chamelon",
+            "description": "Name user"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@example.com",
+            "description": "Email user"
+          },
+          "password": {
+            "type": "string",
+            "example": "********",
+            "description": "password user"
+          },
+          "photo": {
+            "type": "string",
+            "example": "filename.png",
+            "description": "photo user"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "240b472d-b3c1-4037-ab86-49c2ae8d564e",
+              "description": "Id of entity"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2020-08-28T13:52:40.476Z",
+            "description": "Creation date"
+          },
+          "updated_at": {
+              "type": "string",
+              "example": "2020-08-28T13:52:40.476Z",
+              "description": "Update date"
+          },
+          "name": {
+            "type": "string",
+            "example": "Chamelon",
+            "description": "Name category"
+          }
+        }
+      },
+      "Card": {
+        "type": "object",
+        "properties": {
+          "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "240b472d-b3c1-4037-ab86-49c2ae8d564e",
+              "description": "Id of entity"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2020-08-28T13:52:40.476Z",
+            "description": "Creation date"
+          },
+          "updated_at": {
+              "type": "string",
+              "example": "2020-08-28T13:52:40.476Z",
+              "description": "Update date"
+          },
+          "status": {
+            "type": "string",
+            "example": "BACKLOG",
+            "description": "Status card"
+          },
+          "title": {
+            "type": "string",
+            "example": "Create new CRUD",
+            "description": "Title of the card"
+          },
+          "description": {
+            "type": "string",
+            "example": "Create new CRUD with details",
+            "description": "Description oh the card"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "240b472d-b3c1-4037-ab86-49c2ae8d564e",
+            "description": "User id of the card"
+          }
+        }
+      }
+    }
+  }
+}
