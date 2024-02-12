@@ -33,6 +33,8 @@ export class UpdateCardService {
     }
 
     if (category_ids && category_ids?.length > 0) {
+      card.categories = [];
+      
       for (const category_id of category_ids) {
         const category = await this.categoryRepository.findById(category_id);
 
